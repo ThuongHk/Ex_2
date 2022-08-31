@@ -22,18 +22,21 @@ const EditStaff = ({staffEdit}) => {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal); 
   //modal---------
-  const onLoginSubmit = (value) => {
-    dispatch(editStaff({
+  const handleSubmitUpdateStaff = (values) => {
+    // dispatch(editStaff({
+      const updateStaff ={
       id: uuidv4(),
-        name: value.name,
-        birthday: value.birthday,     
-        salaryScale: value.salaryScale,
-        startDate: value.startDate,
-        department: value.department,
-        annualLeave: value.annualLeave,
-        overTime: value.overTime,
+        name: values.name,
+        birthday: values.birthday,     
+        salaryScale: values.salaryScale,
+        startDate: values.startDate,
+        department: values.department,
+        annualLeave: values.annualLeave,
+        overTime: values.overTime,
         image: '/assets/images/daidien.png'
-   }))
+   }
+   staffEdit(updateStaff)
+
   }
 
   return (
@@ -42,11 +45,11 @@ const EditStaff = ({staffEdit}) => {
       <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalHeader className='btn btn-info' toggle={toggle}>Chỉnh Sửa Thông Tin Nhân Viên</ModalHeader>
         <ModalBody>
-            <form onSubmit={handleSubmit(onLoginSubmit)}>
+            <form onSubmit={(values)=>handleSubmitUpdateStaff(values)}>
         <div className="form-group">
           <label >Họ và tên: </label>
-          <input type="text" {...register('name')} defaultValue={staffEdit?.name}
-          onChange={(e)=> setName(e.target.value)}
+          <input type="text" {...register('name')}  defaultValue={staffEdit?.name}
+         
             className="form-control"  id="name" /> 
              {errors.name && 
                       <p className="error">{errors.name?.message}</p>}                 
@@ -54,6 +57,7 @@ const EditStaff = ({staffEdit}) => {
         <div className="form-group">
           <label >Ngày sinh: </label>
           <input type="date"  {...register('birthday')}
+          defaultValue={staffEdit?.birthday}
             className="form-control"  id="birthday" />           
             {errors.birthday && 
                       <p className="error">{errors.birthday?.message}</p>}          
@@ -61,6 +65,7 @@ const EditStaff = ({staffEdit}) => {
         <div className="form-group">
           <label >Hệ số Lương: </label>
           <input type="number"   {...register('salaryScale')}
+          defaultValue={staffEdit?.salaryScale}
             className="form-control"  id="salaryScale" min='0'/> 
              {errors.salaryScale && 
                       <p className="error">{errors.salaryScale?.message}</p>}          
@@ -68,6 +73,7 @@ const EditStaff = ({staffEdit}) => {
         <div className="form-group">
           <label >Ngày vào công ty: </label>
           <input type="date" {...register('startDate')}
+          defaultValue={staffEdit?.startDate}
             className="form-control"  id="startDate"  />   
             {errors.startDate && 
                       <p className="error">{errors.startDate?.message}</p>}                 
@@ -75,7 +81,8 @@ const EditStaff = ({staffEdit}) => {
        
           <div className="form-group">
             <label>Phòng ban:</label>
-            <select className="form-control"  {...register('department')} id="department" >
+            <select className="form-control"  {...register('department')} id="department"  defaultValue={staffEdit?.department} >
+           
               <option value='Sale'>Sale</option>
               <option value='HR'>HR</option>
               <option value='Marketing'>Marketing</option>
@@ -88,13 +95,16 @@ const EditStaff = ({staffEdit}) => {
           <div className="form-group">
           <label >Số ngày nghỉ còn lại: </label>
           <input type="number" {...register('annualLeave')}
-            className="form-control"  id="annualLeave" min='0'  />   
+            className="form-control"  id="annualLeave" min='0' 
+            defaultValue={staffEdit?.annualLeave} />   
+            
              {errors.annualLeave && 
                       <p className="error">{errors.annualLeave?.message}</p>}         
         </div>
         <div className="form-group">
           <label >Số ngày làm thêm: </label>
           <input type="number" {...register('overTime')}
+           defaultValue={staffEdit?.overTime}
             className="form-control"  id="overTime" min='0' /> 
             {errors.overTime && 
                       <p className="error">{errors.overTime?.message}</p>}          

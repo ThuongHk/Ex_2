@@ -23,7 +23,7 @@ function Staff() {
   const staffList = showStaff?.map((staff) => {
     return (
       <div className={column} key={staff.id}>
-         <button className='btn btn-warning btn-sm close2' title='xóa' onClick={handleDeleteStaff}><span className='span1'>&times; </span> </button>
+         <button className='btn btn-warning btn-sm close2' title='xóa' onClick={()=>handleDeleteStaff(staff)}><span className='span1'>&times; </span> </button>
         <Link to={`/staff/${staff.id}`}>
           <Card style={{ backgroundColor: '#C6E5EE', cursor: 'pointer' }} >
             <CardImg src={staff.image} alt={staff.name} />

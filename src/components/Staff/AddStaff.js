@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import staffSlice, { addStaff } from './staffSlice';
 import { v4 as uuidv4 } from 'uuid';
@@ -46,6 +46,11 @@ function AddStaff(props) {
 
   const dispatch = useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
+  const [isModalOpen, setModal] = useState(false);
+
+  const toggleModal = () => {
+    setModal(!isModalOpen);
+  };
 
 
   const onLoginSubmit = (data) => {
@@ -78,11 +83,11 @@ function AddStaff(props) {
 
   return (
     <div className='container'>
-      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  onClick={toggleModal}>
         +
       </button>
 
-      <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" isOpen={isModalOpen} toggle={toggleModal}>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
